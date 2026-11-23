@@ -50,7 +50,7 @@ module.exports = async function handler(req, res) {
     try { result = JSON.parse(raw); } catch (_) { throw Error('Non-JSON response from Google Apps Script'); }
     if (!result.ok) {
       if (result.code === 'VALIDATION') return res.status(400).json({ error: 'Please check your RSVP details.' });
-      throw Error('Apps Script rejected RSVP');
+      throw Error('Apps Script rejected RSVP; code=' + String(result.code || 'UNKNOWN').replace(/[^A-Z_]/g, '').slice(0, 40));
     }
     return res.status(200).json({ ok: true, message: 'RSVP saved successfully.' });
   } catch (error) {
