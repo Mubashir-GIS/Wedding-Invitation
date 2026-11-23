@@ -1,4 +1,4 @@
-const {constantEqual,validOrigin,loginCookie,send}=require('./_admin-auth');
+const {constantEqual,validOrigin,loginCookie,send}=require('../lib/admin-auth');
 module.exports=async function(req,res){
   if(req.method!=='POST') return send(req,res,405,{error:'Method not allowed'});
   if(!validOrigin(req)) return send(req,res,403,{error:'Invalid request origin'});
