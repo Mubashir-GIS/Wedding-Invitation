@@ -1,4 +1,4 @@
-const {loggedIn,send}=require('./_admin-auth');
+const {loggedIn,send}=require('../lib/admin-auth');
 module.exports=async function(req,res){
   if(req.method!=='GET') return send(req,res,405,{error:'Method not allowed'});
   if(!loggedIn(req)) return send(req,res,401,{error:'Login required'});
