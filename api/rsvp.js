@@ -8,7 +8,7 @@ module.exports = async function handler(req, res) {
 
   const url = process.env.GOOGLE_APPS_SCRIPT_URL;
   const secret = process.env.RSVP_SHARED_SECRET;
-  if (!url || !secret) return res.status(503).json({ error: 'RSVP service is being configured. Please try again soon.' });
+  if (!url || !secret) return res.status(503).json({ error: 'RSVP service is not connected yet. Please contact the couple directly.' });
   if (!/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(url)) {
     return res.status(503).json({ error: 'RSVP service is not configured correctly.' });
   }
@@ -21,11 +21,16 @@ module.exports = async function handler(req, res) {
 
   const name = String(data.name || '').trim();
   const attending = String(data.attending || '').trim().toLowerCase();
-  const plusOne = String(data.plusOne || '').trim();
+  const guestNames = Array.isArray(data.guestNames) ? data.guestNames.map(value => String(value || '').trim()) : null;
+  const legacyPlusOne = String(data.plusOne || '').trim();
+  const guestCount = Number(data.guestCount);
   const requests = String(data.requests || '').trim();
-  if (name.length < 2 || name.length > 120 || !['yes', 'no'].includes(attending) ||
-      !plusOne || plusOne.length > 120 || requests.length > 1000) {
-    return res.status(400).json({ error: 'Please check your name, RSVP choice, plus-one and message.' });
+  const validGuestNames = guestNames
+    ? guestNames.length <= 5 && guestNames.every(value => value.length >= 2 && value.length <= 120) &&
+      (attending === 'no' ? guestNames.length === 0 : guestNames.length === guestCount - 1 && guestCount >= 1 && guestCount <= 6)
+    : Boolean(legacyPlusOne && legacyPlusOne.length <= 120 && (attending === 'no' || legacyPlusOne.toLowerCase() === 'none' || legacyPlusOne.length >= 2));
+  if (name.length < 2 || name.length > 120 || !['yes', 'no'].includes(attending) || !validGuestNames || requests.length > 1000) {
+    return res.status(400).json({ error: 'Please check your name, attendance choice, invited guest names and message.' });
   }
 
   const suppliedId = String(data.requestId || '');
@@ -33,13 +38,14 @@ module.exports = async function handler(req, res) {
     ? suppliedId
     : (globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`);
   // The server is the source of truth for headcount. A declined invitation is always zero.
-  const guests = attending === 'no' ? 0 : (plusOne.toLowerCase() === 'none' ? 1 : 2);
+  const guests = attending === 'no' ? 0 : (guestNames ? guestNames.length + 1 : (legacyPlusOne.toLowerCase() === 'none' ? 1 : 2));
+  const plusOne = guestNames ? (guestNames.join(', ') || 'None') : legacyPlusOne;
 
   try {
     const upstream = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ secret, requestId, name, attending, guests, plusOne, requests }),
+      body: JSON.stringify({ secret, requestId, name, attending, guests, guestNames: guestNames || (legacyPlusOne.toLowerCase() === 'none' ? [] : [legacyPlusOne]), plusOne, requests }),
       signal: AbortSignal.timeout(25000),
       redirect: 'follow'
     });

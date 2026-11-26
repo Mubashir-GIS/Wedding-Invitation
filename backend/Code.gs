@@ -7,7 +7,7 @@
 const TAB_NAME = 'Wedding RSVPs';
 const HEADERS = [
   'Submitted At', 'Submission ID', 'Full Name', 'Attending',
-  'Number of Guests', 'Plus-One Name', 'Special Requests'
+  'Number of Guests', 'Plus-One Name', 'Special Requests', 'Guest Names'
 ];
 const GIFT_TAB = 'Honeymoon Gifts';
 const GIFT_HEADERS = [
@@ -79,15 +79,21 @@ function doPost(e) {
 function submitRsvp_(props, data) {
   const name = String(data.name || '').trim();
   const attending = String(data.attending || '').trim().toLowerCase();
-  const plusOne = String(data.plusOne || '').trim();
+  const legacyPlusOne = String(data.plusOne || '').trim();
+  const guestNames = Array.isArray(data.guestNames)
+    ? data.guestNames.map(function (name) { return String(name || '').trim(); })
+    : (legacyPlusOne && legacyPlusOne.toLowerCase() !== 'none' ? [legacyPlusOne] : []);
   const requests = String(data.requests || '').trim();
   const submissionId = String(data.requestId || '').trim();
+  const validNames = guestNames.length <= 5 && guestNames.every(function (guestName) { return guestName.length >= 2 && guestName.length <= 120; });
   if (!/^[A-Za-z0-9-]{16,100}$/.test(submissionId) || name.length < 2 || name.length > 120 ||
-      ['yes', 'no'].indexOf(attending) === -1 || !plusOne || plusOne.length > 120 || requests.length > 1000) {
+      ['yes', 'no'].indexOf(attending) === -1 || !validNames || requests.length > 1000 ||
+      (attending === 'no' && guestNames.length !== 0) || (attending === 'yes' && guestNames.length + 1 > 6)) {
     return json_({ ok: false, code: 'VALIDATION' });
   }
-  // Count on the server; never trust a browser-supplied guest total.
-  const guests = attending === 'no' ? 0 : (plusOne.toLowerCase() === 'none' ? 1 : 2);
+  // Derive party size from validated names; a declined invitation is always zero.
+  const guests = attending === 'no' ? 0 : guestNames.length + 1;
+  const plusOne = guestNames.join(', ') || 'None';
   const sheet = getSheet_(props, TAB_NAME, HEADERS);
   if (!sheet) return json_({ ok: false, code: 'NOT_CONFIGURED' });
   const lock = LockService.getScriptLock();
@@ -106,7 +112,8 @@ function submitRsvp_(props, data) {
       'attending': attending === 'yes' ? 'Accepts' : 'Declines',
       'number of guests': guests,
       'plus-one name': safeCell_(plusOne),
-      'special requests': safeCell_(requests)
+      'special requests': safeCell_(requests),
+      'guest names': safeCell_(JSON.stringify(guestNames))
     });
     return json_({ ok: true, guests: guests });
   } catch (error) {
@@ -128,7 +135,13 @@ function dashboardRead_(props) {
     if (!id) return null;
     const attending = accepted_(value_(row, schema, 'attending'));
     const plusOne = String(value_(row, schema, 'plus-one name') || '').trim() || 'None';
-    const count = attending ? (plusOne.toLowerCase() === 'none' ? 1 : 2) : 0;
+    let storedNames = [];
+    try {
+      const parsedNames = JSON.parse(String(value_(row, schema, 'guest names') || '[]'));
+      if (Array.isArray(parsedNames)) storedNames = parsedNames.map(function (value) { return String(value).trim(); }).filter(Boolean);
+    } catch (_) {}
+    const guestNames = storedNames.length ? storedNames : (plusOne.toLowerCase() === 'none' ? [] : [plusOne]);
+    const count = attending ? guestNames.length + 1 : 0;
     return {
       id: id,
       submittedAt: value_(row, schema, 'submitted at') || '',
@@ -136,6 +149,7 @@ function dashboardRead_(props) {
       attending: attending ? 'Accepts' : 'Declines',
       guests: count,
       plusOne: plusOne,
+      guestNames: guestNames,
       requests: String(value_(row, schema, 'special requests') || '')
     };
   }).filter(Boolean);
