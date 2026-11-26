@@ -16,7 +16,7 @@ module.exports=async function(req,res){
     if(!response.ok)throw Error('upstream HTTP '+response.status);
     const result=await response.json();
     if(!result.ok)throw Error('upstream '+String(result.code||'failed').replace(/[^A-Z_]/g,''));
-    return send(req,res,200,{ok:true,stats:result.stats,guests:result.guests});
+    return send(req,res,200,{ok:true,stats:result.stats,guests:result.guests,gifts:result.gifts||[]});
   }catch(err){
     console.error('Admin data fetch failed:',err.message);
     return send(req,res,502,{error:'Unable to load guest records. Please retry.'});
