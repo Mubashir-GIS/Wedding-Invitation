@@ -6,7 +6,11 @@ module.exports=async function(req,res){
   const sessionSecret=process.env.ADMIN_SESSION_SECRET;
   if(!expected || expected.length<16 || !sessionSecret || sessionSecret.length<32)
     return send(req,res,503,{error:'Admin login not configured'});
-  const body=typeof req.body==='string'?JSON.parse(req.body||'{}'):req.body||{};
+  let body;
+  try {
+    body=typeof req.body==='string'?JSON.parse(req.body||'{}'):req.body||{};
+    if(!body||typeof body!=='object'||Array.isArray(body)) throw new Error('Invalid body');
+  } catch { return send(req,res,400,{error:'Invalid login request'}); }
   const password=String(body.password||'');
   if(password.length>256 || !constantEqual(password,expected)) return send(req,res,401,{error:'Incorrect password'});
   res.setHeader('Set-Cookie',loginCookie(req));
