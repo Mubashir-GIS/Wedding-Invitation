@@ -308,6 +308,68 @@ body:not(.past-hero) .side-rsvp{background:rgba(30,23,19,.18);color:#fff5e7}
 @media(max-width:760px){.dress-art-seal{width:72px;height:72px}}
 @media(prefers-reduced-motion:reduce){.dress-art-box:before,.dress-art-kicker,.dress-art-phrase,.dress-art-seal,.dress-art-flower{animation:none!important}}
 
+
+/* Luxury, deliberate three-stage invitation opening */
+.invitation-overlay{background:radial-gradient(ellipse at 50% 44%,#fffaf1 0%,#ece4d7 54%,#d6cabb 100%);transition:opacity 1.05s cubic-bezier(.2,.7,.2,1),visibility 0s linear 1.05s}
+.invitation-overlay:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 12% 18%,#fff9 0 1px,transparent 2px),radial-gradient(circle at 84% 27%,#fff8 0 1px,transparent 2px),radial-gradient(circle at 22% 74%,#c9ad8d55 0 1px,transparent 2px),radial-gradient(circle at 73% 83%,#fff9 0 1px,transparent 2px);background-size:220px 240px,280px 300px,320px 260px,260px 320px;animation:invitationDust 18s linear infinite}
+.invitation-overlay.closing{opacity:0;backdrop-filter:blur(16px)}
+.lake-como-invite{transform-style:preserve-3d;filter:drop-shadow(0 42px 66px #54442f30)}
+.envelope-cover{transform:translateZ(0);box-shadow:inset 0 0 0 8px #fff8,inset 0 0 38px #dfceb42a,0 18px 48px #74634a2a}
+.envelope-texture{opacity:.72}
+.envelope-flap{transform-style:preserve-3d;backface-visibility:hidden;filter:drop-shadow(0 8px 11px #6a563525)}
+.envelope-flap:before{content:"";position:absolute;inset:8px 8px 18%;border:1px solid #c9ad8d66;clip-path:polygon(0 0,100% 0,50% 76%);pointer-events:none}
+.seal-button{width:clamp(128px,25vw,158px);border:3px double #f0d99f;background:radial-gradient(circle at 32% 24%,#fff0c8 0%,#dfc17d 20%,#b58b48 48%,#8d6b39 68%,#d5b974 100%);box-shadow:0 14px 34px #604a2b66,inset 0 3px 11px #fff9,inset 0 -9px 16px #59411f75,0 0 0 7px #fff5,0 0 0 8px #bd9b6b88;transition:transform .4s cubic-bezier(.2,.7,.2,1),filter .4s,box-shadow .4s}
+.seal-button:not(:disabled){animation:sealBreath 4.8s ease-in-out infinite}
+.seal-button:before{inset:10px;border:1px solid #fff0c9;box-shadow:inset 0 0 0 4px #9b783d55,0 0 0 1px #f7e5bb88}
+.seal-button:after{inset:19px;border:1px dotted #fff4d9;box-shadow:0 0 0 4px #9b783d35}
+.seal-button span{font-weight:500;letter-spacing:.035em;text-shadow:0 2px 3px #604521,0 0 12px #fff9}
+.seal-button:hover{transform:translate(-50%,-50%) scale(1.065);filter:brightness(1.08);box-shadow:0 18px 42px #604a2b70,inset 0 3px 11px #fff9,inset 0 -9px 16px #59411f75,0 0 0 7px #fff7,0 0 0 8px #bd9b6b}
+.lake-como-invite.opening .seal-button:not(:disabled){animation:sealBreak .82s cubic-bezier(.2,.8,.2,1) forwards}
+.envelope-flap:after{opacity:.28}
+.lake-como-invite.opening .envelope-flap,.lake-como-invite.opened .envelope-flap{transition-delay:.3s}
+.envelope-side-fold{transform-style:preserve-3d}
+.paper-interior{inset:4%;z-index:0;visibility:hidden;opacity:0;transform:translateY(18%) scale(.86) rotateX(8deg) rotateZ(-1.5deg);transform-origin:50% 100%;padding:clamp(28px,7vw,62px);border:1px solid #d1bc99;background:radial-gradient(ellipse at 50% 10%,#fff 0%,#fffdf9 52%,#f1e8db 100%);box-shadow:0 32px 75px #35291940,inset 0 0 0 6px #fff9,inset 0 0 38px #d6c2a322;transition:opacity 1.05s ease,transform 1.35s cubic-bezier(.16,.72,.2,1),visibility 0s linear 0s;overflow:hidden}
+.paper-interior:before{inset:14px;border:1px solid #c5a77b;box-shadow:inset 0 0 0 5px #c7ae8a16}
+.lake-como-invite.opening .paper-interior{visibility:visible;z-index:12;opacity:0;transform:translateY(18%) scale(.86) rotateX(8deg) rotateZ(-1.5deg)}
+.lake-como-invite.opened .paper-interior{visibility:visible;z-index:12;opacity:0;transform:translateY(18%) scale(.86) rotateX(8deg) rotateZ(-1.5deg);transition-delay:0s}
+.lake-como-invite.card-rising .paper-interior{opacity:1;transform:translateY(-1%) scale(1) rotateX(0) rotateZ(0)}
+.inside-flower{position:absolute;z-index:0;width:24%;height:22%;opacity:.2;filter:saturate(.62);pointer-events:none;background:var(--floral-art) center/contain no-repeat;mask-image:radial-gradient(ellipse at center,#000 32%,transparent 76%)}
+.inside-flower.tl{left:1.5%;top:1.5%;background-position:left top}
+.inside-flower.br{right:1.5%;bottom:1.5%;background-position:right bottom}
+.paper-interior>:not(.inside-flower){position:relative;z-index:1}
+.paper-interior h2{font-size:clamp(35px,6vw,56px);line-height:1.02;margin:clamp(14px,3vh,28px) 0}
+.paper-interior p{max-width:28ch;margin:18px auto 12px;line-height:1.75;text-align:center}
+.paper-interior .inside-date{max-width:100%;text-align:center;line-height:1.6}
+.inside-continue{margin-top:24px;padding:13px 22px;background:linear-gradient(145deg,#fffefa,#f5ecdd);border:1px solid #b99a70;color:#675338;box-shadow:0 8px 24px #7a634022,inset 0 1px #fff;letter-spacing:.22em;opacity:0;transform:translateY(12px);pointer-events:none;transition:transform .4s,background .4s,box-shadow .4s}
+.lake-como-invite.card-ready .inside-continue{opacity:1;transform:none;pointer-events:auto;animation:buttonIn .7s cubic-bezier(.2,.7,.2,1) both}
+.inside-continue:hover{transform:translateY(-2px);box-shadow:0 12px 30px #7a634033}
+.lake-como-invite.card-rising .paper-interior .eyebrow{animation:inviteTextIn .75s .12s both}
+.lake-como-invite.card-rising .paper-interior h2{animation:inviteTextIn .95s .22s both}
+.lake-como-invite.card-rising .paper-interior .thin-rule{animation:inviteRuleIn .8s .42s both}
+.lake-como-invite.card-rising .paper-interior p{animation:inviteTextIn .8s .5s both}
+.lake-como-invite.card-rising .paper-interior .inside-date{animation:inviteTextIn .8s .62s both}
+.lake-como-invite.card-leaving .paper-interior{opacity:0;transform:translateY(-12%) scale(1.04) rotateX(-6deg);filter:blur(5px);transition:opacity .8s ease,transform .9s cubic-bezier(.3,0,.7,.2),filter .8s}
+.lake-como-invite.card-leaving .envelope-cover{opacity:0}
+.lake-como-invite.card-leaving{transform:scale(1.035);transition:transform .85s cubic-bezier(.3,0,.7,.2)}
+body.site-reveal .site-header{animation:headerUnveil .9s .12s both}
+body.site-reveal .hero-frame{animation:homeUnveil 1.45s cubic-bezier(.16,.72,.2,1) both}
+body.site-reveal .hero-center>*{opacity:0;animation:homeDetailsIn .8s cubic-bezier(.2,.7,.2,1) both}
+body.site-reveal .hero-center>*:nth-child(1){animation-delay:.35s}body.site-reveal .hero-center>*:nth-child(2){animation-delay:.48s}body.site-reveal .hero-center>*:nth-child(3){animation-delay:.6s}body.site-reveal .hero-center>*:nth-child(4){animation-delay:.72s}body.site-reveal .hero-center>*:nth-child(5){animation-delay:.84s}body.site-reveal .hero-center>*:nth-child(6){animation-delay:.96s}body.site-reveal .hero-center>*:nth-child(7){animation-delay:1.08s}
+body.site-reveal .hero-names .name-line{clip-path:inset(0 100% 0 0);animation:homeSignatureIn 1.25s cubic-bezier(.65,0,.35,1) both}
+body.site-reveal .hero-names .groom-name{animation-delay:1.02s}
+body.site-reveal .hero-shade:after{animation-duration:20s}
+@keyframes invitationDust{to{background-position:220px 240px,-280px 300px,320px -260px,-260px 320px}}
+@keyframes sealBreath{0%,100%{filter:brightness(1);box-shadow:0 14px 34px #604a2b66,inset 0 3px 11px #fff9,inset 0 -9px 16px #59411f75,0 0 0 7px #fff5,0 0 0 8px #bd9b6b88}50%{filter:brightness(1.09);box-shadow:0 17px 40px #604a2b70,inset 0 3px 11px #fff9,inset 0 -9px 16px #59411f75,0 0 0 9px #fff6,0 0 0 10px #bd9b6b99}}
+@keyframes inviteTextIn{from{opacity:0;transform:translateY(14px);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
+@keyframes inviteRuleIn{from{opacity:0;transform:scaleX(.15)}to{opacity:.45;transform:scaleX(1)}}
+@keyframes buttonIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes homeUnveil{from{opacity:0;transform:translateY(30px) scale(.975);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+@keyframes homeDetailsIn{from{opacity:0;transform:translateY(24px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes homeSignatureIn{to{clip-path:inset(0 0 0 0)}}
+@keyframes headerUnveil{from{opacity:0;transform:translateY(-18px);backdrop-filter:blur(10px)}to{opacity:1;transform:none;backdrop-filter:blur(0)}}
+@media(max-width:600px){.inside-flower{width:19%;height:18%;opacity:.15}.paper-interior{padding:clamp(26px,7vw,42px)}.paper-interior h2{font-size:clamp(34px,8vw,47px)}.inside-continue{margin-top:17px;padding:11px 16px;font-size:8px}}
+@media(prefers-reduced-motion:reduce){.invitation-overlay:before,.seal-button:not(:disabled),body.site-reveal .site-header,body.site-reveal .hero-frame,body.site-reveal .hero-center>*,.lake-como-invite.card-rising .paper-interior>*{animation:none!important}.lake-como-invite.card-rising .paper-interior{opacity:1;transform:none;filter:none}.inside-flower{opacity:.12}.inside-continue{opacity:1;transform:none;pointer-events:auto}}
+
 </style></head><body>
 <div id="preloader" class="preloader"><span class="pre-monogram">K <em>&</em> D</span><span class="pre-caption">A LOVE STORY</span></div>
 <div id="inviteOverlay" class="invitation-overlay" role="dialog" aria-modal="true" aria-label="Wedding invitation">
@@ -447,8 +509,8 @@ const header=$('header');window.addEventListener('scroll',()=>{header.classList.
 $('menuToggle').onclick=()=>{const isOpen=$('nav').classList.toggle('open');$('menuToggle').setAttribute('aria-expanded',String(isOpen));};document.querySelectorAll('#nav a').forEach(a=>a.onclick=()=>{$('nav').classList.remove('open');$('menuToggle').setAttribute('aria-expanded','false');});
 const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));const inviteMessage=document.querySelector('.invite-message');if(inviteMessage){const words=inviteMessage.textContent.trim().split(/\s+/);inviteMessage.replaceChildren(...words.map((word,i)=>{const span=document.createElement('span');span.className='word';span.textContent=word;span.style.transitionDelay=Math.min(i*45,900)+'ms';return span;}));}document.querySelectorAll('.countdown b').forEach(number=>new MutationObserver(()=>{number.classList.remove('tick');void number.offsetWidth;number.classList.add('tick');}).observe(number,{childList:true,characterData:true,subtree:true}));
 window.addEventListener('load',()=>{setTimeout(()=>$('preloader').classList.add('hidden'),450);});
-const overlay=$('inviteOverlay');document.body.classList.add('locked');$('openInvite').onclick=()=>{const card=$('inviteCard');$('openInvite').disabled=true;card.classList.add('opening');$('paperInterior').setAttribute('aria-hidden','false');setTimeout(()=>card.classList.add('opened'),900);setTimeout(()=>{overlay.classList.add('closed');document.body.classList.remove('locked');},4200);};
-$('paperInterior').querySelector('.inside-continue').onclick=()=>{overlay.classList.add('closed');document.body.classList.remove('locked');};
+const overlay=$('inviteOverlay'),inviteCard=$('inviteCard'),paperInterior=$('paperInterior'),sealButton=$('openInvite'),continueButton=paperInterior.querySelector('.inside-continue');document.body.classList.add('locked');sealButton.onclick=()=>{if(inviteCard.classList.contains('opening'))return;sealButton.disabled=true;inviteCard.classList.add('opening');paperInterior.setAttribute('aria-hidden','false');setTimeout(()=>inviteCard.classList.add('opened','card-rising'),1050);setTimeout(()=>inviteCard.classList.add('card-ready'),2600);};
+continueButton.onclick=()=>{if(!inviteCard.classList.contains('card-ready'))return;inviteCard.classList.add('card-leaving');overlay.classList.add('closing');document.body.classList.add('site-reveal');setTimeout(()=>{overlay.classList.add('closed');document.body.classList.remove('locked');},900);};
 const form=$('rsvpForm');
 const guestCount=$('guestCount'),guestNames=$('guestNames'),guestDetails=$('guestDetails');
 function renderGuestNameFields(){const count=Number(guestCount.value)||0;guestNames.replaceChildren();for(let i=1;i<count;i++){const label=document.createElement('label');label.textContent='Guest '+(i+1)+' full name ';const required=document.createElement('span');required.textContent='*';label.append(required);const input=document.createElement('input');input.name='guestNames[]';input.maxLength=120;input.required=true;input.placeholder='Full name of invited guest '+(i+1);input.autocomplete='off';label.append(input);guestNames.append(label);}}
