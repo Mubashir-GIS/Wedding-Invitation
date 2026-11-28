@@ -440,6 +440,12 @@ body.site-reveal .hero-shade:after{animation-duration:20s}
  .music-toggle{left:14px;right:auto;bottom:calc(14px + env(safe-area-inset-bottom))}
 }
 @media(max-width:380px){.paper-interior{padding:78px 20px 84px}.paper-interior h2{font-size:clamp(27px,7vw,31px)}}
+
+/* Keep the inner invitation in place while it unfolds; text should not ride upward. */
+@media(prefers-reduced-motion:no-preference){
+ .lake-como-invite.opening .paper-interior,.lake-como-invite.opened .paper-interior{transform:translateY(0) scale(.985) rotateX(3deg) rotateZ(-.3deg)}
+ .lake-como-invite.card-rising .paper-interior{transform:translateY(0) scale(1) rotateX(0) rotateZ(0)}
+}
 </style></head><body>
 <div id="preloader" class="preloader"><span class="pre-monogram">K <em>&</em> D</span><span class="pre-caption">A LOVE STORY</span></div>
 <div id="inviteOverlay" class="invitation-overlay" role="dialog" aria-modal="true" aria-label="Wedding invitation">
