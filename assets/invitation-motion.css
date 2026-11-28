@@ -243,3 +243,4 @@
   inset: auto 8px 8px auto;
   transform: rotate(180deg);
 }
+.hero-names[tabindex="-1"]:focus { outline: none; }
