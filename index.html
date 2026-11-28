@@ -446,6 +446,35 @@ body.site-reveal .hero-shade:after{animation-duration:20s}
  .lake-como-invite.opening .paper-interior,.lake-como-invite.opened .paper-interior{transform:translateY(0) scale(.985) rotateX(3deg) rotateZ(-.3deg)}
  .lake-como-invite.card-rising .paper-interior{transform:translateY(0) scale(1) rotateX(0) rotateZ(0)}
 }
+
+/* Visible physical envelope reveal + short-screen invitation fit. */
+.envelope-cover .envelope-flap{
+ display:block!important;z-index:9!important;height:58%;clip-path:polygon(0 0,100% 0,50% 78%);
+ background-image:url('/assets/envelope-cover-reference.webp')!important;
+ background-repeat:no-repeat!important;background-position:center top!important;
+ background-size:100% 172.42%!important;
+ transform-origin:50% 0!important;transform-style:preserve-3d!important;
+ backface-visibility:hidden!important;filter:drop-shadow(0 8px 11px #6a563535)!important;
+ transition:transform 1.18s cubic-bezier(.16,.72,.2,1),filter .55s ease!important;
+}
+.seal-button{z-index:14!important}
+.lake-como-invite.opening .envelope-flap,.lake-como-invite.opened .envelope-flap{
+ display:block!important;transform:rotateX(180deg) translateZ(1px)!important;
+ transition-delay:0s!important;filter:drop-shadow(0 12px 16px #6a56354a)!important;
+}
+.lake-como-invite.opening .envelope-cover{
+ transition:opacity .72s ease 1.22s,visibility 0s linear 1.94s!important;
+}
+@media(max-height:600px) and (min-width:601px){
+ .paper-interior{padding:20px 22px 24px!important;gap:7px!important;justify-content:center!important}
+ .paper-interior .eyebrow{font-size:8px!important;letter-spacing:.24em!important}
+ .paper-interior h2{font-size:clamp(24px,7vh,34px)!important;line-height:1!important;margin:2px 0!important}
+ .paper-interior p{font-size:12px!important;line-height:1.32!important;max-width:27ch!important}
+ .paper-interior .thin-rule{margin:6px auto!important}
+ .paper-interior .inside-date{font-size:8px!important;margin-top:2px!important}
+ .paper-interior .inside-continue{margin-top:4px!important;padding:7px 11px!important;font-size:8px!important}
+ .paper-interior .inside-flower{opacity:.06!important}
+}
 </style></head><body>
 <div id="preloader" class="preloader"><span class="pre-monogram">K <em>&</em> D</span><span class="pre-caption">A LOVE STORY</span></div>
 <div id="inviteOverlay" class="invitation-overlay" role="dialog" aria-modal="true" aria-label="Wedding invitation">
@@ -587,7 +616,7 @@ const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isInte
 const copyObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('copy-visible');copyObserver.unobserve(entry.target);}}),{threshold:.14});
 document.querySelectorAll('main section:not(.hero) h2,main section:not(.hero) h3,main section:not(.hero) h4,main section:not(.hero) p,main section:not(.hero) blockquote,main section:not(.hero) .eyebrow').forEach((el,index)=>{el.classList.add('luxury-copy');el.dataset.copyMotion=String(index%4);el.style.setProperty('--copy-delay',String((index%4)*70)+'ms');copyObserver.observe(el);});const inviteMessage=document.querySelector('.invite-message');if(inviteMessage){const words=inviteMessage.textContent.trim().split(/\s+/);inviteMessage.replaceChildren(...words.map((word,i)=>{const span=document.createElement('span');span.className='word';span.textContent=word;span.style.transitionDelay=Math.min(i*45,900)+'ms';return span;}));}document.querySelectorAll('.countdown b').forEach(number=>new MutationObserver(()=>{number.classList.remove('tick');void number.offsetWidth;number.classList.add('tick');}).observe(number,{childList:true,characterData:true,subtree:true}));
 window.addEventListener('load',()=>{setTimeout(()=>$('preloader').classList.add('hidden'),450);});
-const overlay=$('inviteOverlay'),inviteCard=$('inviteCard'),paperInterior=$('paperInterior'),sealButton=$('openInvite'),continueButton=paperInterior.querySelector('.inside-continue');document.body.classList.add('locked');let autoAdvanceTimer;sealButton.onclick=()=>{if(inviteCard.classList.contains('opening'))return;sealButton.disabled=true;inviteCard.classList.add('opening');paperInterior.setAttribute('aria-hidden','false');if(music&&cfg.musicUrl&&music.paused){music.play().then(()=>{musicToggle.textContent='♫ Pause music';musicToggle.setAttribute('aria-pressed','true');}).catch(()=>{musicToggle.textContent='♫ Tap to play music';});}setTimeout(()=>inviteCard.classList.add('opened','card-rising'),1050);setTimeout(()=>inviteCard.classList.add('card-ready'),2600);autoAdvanceTimer=setTimeout(()=>{if(!overlay.classList.contains('closing'))continueButton.click();},4000);};
+const overlay=$('inviteOverlay'),inviteCard=$('inviteCard'),paperInterior=$('paperInterior'),sealButton=$('openInvite'),continueButton=paperInterior.querySelector('.inside-continue');document.body.classList.add('locked');let autoAdvanceTimer;sealButton.onclick=()=>{if(inviteCard.classList.contains('opening'))return;sealButton.disabled=true;inviteCard.classList.add('opening');paperInterior.setAttribute('aria-hidden','false');if(music&&cfg.musicUrl&&music.paused){music.play().then(()=>{musicToggle.textContent='♫ Pause music';musicToggle.setAttribute('aria-pressed','true');}).catch(()=>{musicToggle.textContent='♫ Tap to play music';});}setTimeout(()=>inviteCard.classList.add('opened','card-rising'),1450);setTimeout(()=>inviteCard.classList.add('card-ready'),2600);autoAdvanceTimer=setTimeout(()=>{if(!overlay.classList.contains('closing'))continueButton.click();},4000);};
 continueButton.onclick=()=>{clearTimeout(autoAdvanceTimer);inviteCard.classList.add('card-leaving');document.body.classList.add('site-reveal');overlay.classList.add('closing');setTimeout(()=>{overlay.remove();document.body.classList.remove('locked');window.scrollTo({top:0,behavior:'instant'});},1150);};
 const form=$('rsvpForm');
 const guestCount=$('guestCount'),guestNames=$('guestNames'),guestDetails=$('guestDetails');
