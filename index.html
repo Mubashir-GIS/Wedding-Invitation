@@ -233,6 +233,61 @@ body:not(.past-hero) .side-rsvp{background:rgba(30,23,19,.18);color:#fff5e7}
 @keyframes luxuryRise{from{opacity:0;transform:translateY(24px) scale(.985);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
 @media(prefers-reduced-motion:reduce){.seal-button,.envelope-flap,.paper-interior,.envelope-side-fold,.envelope-pocket,.venue-card,.dress-art,.honeymoon-card,.gift-form,.gallery-grid{animation:none!important;transition:none!important}.lake-como-invite.opened .paper-interior{opacity:1;transform:none;visibility:visible}}
 
+
+/* Requested polish: preserve the full client photographs and use a quieter luxury finish. */
+.gallery-grid img{object-fit:contain!important;object-position:center;transform:scale(1.01)}
+.gallery-grid button.is-active img{transform:scale(1.045)}
+.gallery-grid button:after{top:18px;right:20px;width:38px;height:38px;display:grid;place-items:center;border:1px solid #fff9;border-radius:50%;background:#172b4955;backdrop-filter:blur(8px)}
+.gallery-grid{border:1px solid #c9ad8d;padding:10px;background:#211e1b}
+.gallery-controls button{box-shadow:0 5px 18px #382c1b16}
+.date-image{background-position:center 42%!important;isolation:isolate}
+.date-image:after{content:"";position:absolute;inset:18px;border:1px solid #fff9;box-shadow:inset 0 0 50px #172b4924;pointer-events:none;z-index:0}
+.photo-caption{z-index:1;left:34px;bottom:34px;background:rgba(23,43,73,.58);backdrop-filter:blur(10px);border:1px solid #ead8b7;border-radius:2px;box-shadow:0 12px 35px #0002}
+.venue-card{border:1px solid #d8c6a9;box-shadow:0 28px 75px #382c1b16}
+.venue-visual{position:relative;min-height:480px;background-image:linear-gradient(180deg,rgba(23,43,73,.04) 42%,rgba(18,26,39,.38)),url('/assets/balcony-ballroom.webp');background-position:center 48%;filter:saturate(.82) contrast(1.03)}
+.venue-visual-inner{position:absolute;inset:auto 24px 24px;width:auto;padding:18px 24px 20px;text-align:left;border:1px solid #ffffff9a!important;background:rgba(23,43,73,.58);backdrop-filter:blur(12px);box-shadow:0 12px 35px #0002}
+.venue-visual-inner .location-symbol{display:none}
+.venue-visual-inner h3{font-size:clamp(26px,3vw,36px);margin:3px 0 0}
+.venue-info{background:linear-gradient(145deg,#f5f1e8,#eee7dc)}
+.venue-info h3{letter-spacing:-.035em}
+.dress-note{border:1px solid #ddcfbb;border-left:2px solid #b59469;background:linear-gradient(120deg,#fffdf9e8,#f8f3ebd9);box-shadow:0 10px 30px #2b31400a}
+.swatches span{transition:transform .3s,box-shadow .3s;box-shadow:0 0 0 4px var(--ivory),0 0 0 5px #bdae9e,0 7px 18px #172b4917}
+.swatches span:hover{transform:translateY(-3px) scale(1.04)}
+.dress-art{border-color:#c6ad89;background:linear-gradient(145deg,#f5ebdc,#e4ddd2);box-shadow:0 22px 55px #342b2014}
+.dress-art-box{position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 30%,#fffefa 0%,#faf5eb 62%,#eee6da 100%);border-color:#c9b18e;box-shadow:inset 0 0 35px #fff8}
+.dress-art-box:after{content:"";position:absolute;inset:9px;border:1px solid #c9b18e45;pointer-events:none}
+.dress-art-flower{opacity:.31;width:58%;height:53%;right:-10%;top:-14%;filter:saturate(.72)}
+.dress-art-seal{box-shadow:0 9px 24px #b1936340,inset 0 0 0 4px #fff9}
+.lake-como-invite{box-shadow:0 46px 110px rgba(39,33,26,.3)}
+.envelope-cover{background:radial-gradient(ellipse at 50% 42%,#fffefa 0%,#f7f1e8 55%,#eee4d7 100%);box-shadow:inset 0 0 0 8px #fff7,inset 0 0 38px #dfceb42a,0 10px 45px #74634a1c}
+.envelope-cover:after{content:"";position:absolute;inset:12px;border:1px solid #c9ad8d66;pointer-events:none;z-index:10}
+.botanical-relief{font-size:0!important;line-height:0;color:transparent}
+.botanical-top,.botanical-bottom{top:0;bottom:auto;left:-3%;right:auto;width:44%;height:39%;background:var(--floral-art) left top/contain no-repeat;opacity:.63;transform:none}
+.botanical-bottom{top:auto;bottom:0;left:auto;right:-3%;background-position:right bottom;transform:rotate(180deg)}
+.botanical-left,.botanical-right{display:none}
+.cover-copy{top:58%;color:#8d7657;font-size:9px;letter-spacing:.38em;text-shadow:0 1px #fff9}
+.cover-copy strong{color:#a98152;font-size:clamp(28px,5.6vw,42px);text-shadow:0 1px #fff}
+.seal-button{top:48%;box-shadow:0 10px 24px #6b4d2470,inset 0 2px 10px #fff9,inset 0 -4px 9px #59411f5e}
+.tap-copy{bottom:4%;text-shadow:0 1px 0 #fff9;letter-spacing:.38em}
+.paper-interior{background:radial-gradient(ellipse at 50% 12%,#fff 0%,#fffdf9 54%,#f2eadd 100%);box-shadow:0 24px 65px #30251635,inset 0 0 30px #fff9}
+.paper-interior:before{inset:14px;border:1px solid #b89b71;box-shadow:inset 0 0 0 5px #c7ae8a16}
+.inside-flower{opacity:.75;width:43%;height:40%;filter:saturate(.72)}
+.inside-flower.tl{left:-3%;top:-3%}.inside-flower.br{right:-3%;bottom:-3%}
+.paper-interior .eyebrow{color:#9f8058;letter-spacing:.34em}
+.paper-interior h2{color:#172b49;text-shadow:0 1px 0 #fff}
+.paper-interior p{color:#786958}
+.inside-date{color:#9f8058;letter-spacing:.2em;font-size:10px;font-weight:600}
+.inside-continue{margin-top:18px;background:#fffdf8e8;border-color:#b89b71;color:#6d5738;box-shadow:0 6px 18px #5c462018;transition:transform .25s,background .25s}
+.inside-continue:hover{transform:translateY(-2px);background:white}
+.honeymoon-card{border:1px solid #c9ad8d;box-shadow:0 24px 65px #382c1b14;background:linear-gradient(145deg,#fffdf8,#f4ede3)}
+.gift-payment-links{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin:26px auto 0;position:relative;z-index:1}
+.gift-payment-links .btn{min-width:205px;border-color:#b99d76;background:#172b49;color:#fff;box-shadow:0 9px 24px #172b491c}
+.gift-payment-links .btn:hover{background:#8a6c48;border-color:#8a6c48;color:white}
+.gift-payment-links .btn:nth-child(2){background:#a98050;border-color:#a98050}
+.gift-payment-links .btn:nth-child(2):hover{background:#172b49;border-color:#172b49}
+@media(max-width:760px){.venue-visual{min-height:360px}.venue-visual-inner{inset:auto 16px 16px;padding:14px 17px}.photo-caption{left:24px;bottom:24px}.gift-payment-links{gap:9px}.gift-payment-links .btn{min-width:min(100%,220px)}}
+@media(prefers-reduced-motion:reduce){.swatches span{transition:none!important}}
+
 </style></head><body>
 <div id="preloader" class="preloader"><span class="pre-monogram">K <em>&</em> D</span><span class="pre-caption">A LOVE STORY</span></div>
 <div id="inviteOverlay" class="invitation-overlay" role="dialog" aria-modal="true" aria-label="Wedding invitation">
@@ -285,7 +340,7 @@ window.WEDDING = {
   rsvpDeadline: 'January 30, 2027',
   eventTimezone: 'America/Chicago',
   giftCurrency: 'USD',
-  giftMethods: { venmo: '', cashapp: '', zelle: '' },
+  giftMethods: { venmo: 'https://account.venmo.com/u/ktrushyna', cashapp: 'https://cash.app/$guidrygold', zelle: '' },
   musicUrl: '',
   storyVisible: true,
   scheduleVisible: true,
@@ -312,7 +367,7 @@ window.WEDDING = {
   menu: {},
   images: {
     hero:'',
-    portrait:'/assets/kateryna-dalton-09.webp',
+    portrait:'/assets/kateryna-dalton-10.webp',
     gallery:[
       '/assets/kateryna-dalton-01.webp',
       '/assets/kateryna-dalton-02.webp',
@@ -379,7 +434,7 @@ const guestCount=$('guestCount'),guestNames=$('guestNames'),guestDetails=$('gues
 function renderGuestNameFields(){const count=Number(guestCount.value)||0;guestNames.replaceChildren();for(let i=1;i<count;i++){const label=document.createElement('label');label.textContent='Guest '+(i+1)+' full name ';const required=document.createElement('span');required.textContent='*';label.append(required);const input=document.createElement('input');input.name='guestNames[]';input.maxLength=120;input.required=true;input.placeholder='Full name of invited guest '+(i+1);input.autocomplete='off';label.append(input);guestNames.append(label);}}
 guestCount.addEventListener('change',renderGuestNameFields);
 form.querySelectorAll('input[name="attending"]').forEach(radio=>radio.addEventListener('change',()=>{const attending=form.querySelector('input[name="attending"]:checked')?.value;guestDetails.hidden=attending==='no';guestCount.required=attending==='yes';guestCount.disabled=attending==='no';guestNames.querySelectorAll('input').forEach(input=>{input.required=attending==='yes';input.disabled=attending==='no';});if(attending==='no'){guestCount.value='';guestNames.replaceChildren();}}));
-const giftMethods=$('giftPaymentLinks');for(const [method,label] of [['venmo','Venmo'],['cashapp','Cash App'],['zelle','Zelle']]){const target=String(cfg.giftMethods[method]||'').trim();if(!target)continue;const link=document.createElement('a');link.className='btn btn-outline';link.target='_blank';link.rel='noopener noreferrer';link.textContent='SEND WITH '+label.toUpperCase()+' ↗';link.href=method==='venmo'?'https://venmo.com/'+encodeURIComponent(target.replace(/^@/,'')):method==='cashapp'?'https://cash.app/$'+encodeURIComponent(target.replace(/^\$/,'')):'https://www.zellepay.com/';giftMethods.append(link);if(method==='zelle')link.removeAttribute('target');}if(!giftMethods.childElementCount)$('giftSetupNote').textContent='Scan the code with your bank app to send a honeymoon gift to Dalton.';
+const giftMethods=$('giftPaymentLinks');for(const [method,label] of [['venmo','Venmo'],['cashapp','Cash App'],['zelle','Zelle']]){const target=String(cfg.giftMethods[method]||'').trim();if(!target)continue;const link=document.createElement('a');link.className='btn btn-outline';link.target='_blank';link.rel='noopener noreferrer';link.textContent='SEND WITH '+label.toUpperCase()+' ↗';link.href=/^https?:\/\//i.test(target)?target:method==='venmo'?'https://venmo.com/'+encodeURIComponent(target.replace(/^@/,'')):method==='cashapp'?'https://cash.app/$'+encodeURIComponent(target.replace(/^\$/,'')):'https://www.zellepay.com/';giftMethods.append(link);if(method==='zelle')link.removeAttribute('target');}if(giftMethods.childElementCount)$('giftSetupNote').textContent='Scan the bank QR or choose a secure payment link below to send a honeymoon gift.';else $('giftSetupNote').textContent='Scan the code with your bank app to send a honeymoon gift to Dalton.';
 
 
 form.addEventListener('submit',async e=>{e.preventDefault();const data=new FormData(form);const attending=data.get('attending');const names=data.getAll('guestNames[]').map(v=>String(v||'').trim()).filter(Boolean);const payload={requestId:form.dataset.requestId||(form.dataset.requestId=crypto.randomUUID()),name:String(data.get('name')||'').trim(),attending,guestCount:attending==='yes'?Number(data.get('guestCount')):0,guestNames:attending==='yes'?names:[],requests:String(data.get('requests')||'').trim()};const status=$('formStatus');const btn=$('submitBtn');btn.disabled=true;btn.textContent='SENDING...';status.textContent='';status.className='';try{const resp=await fetch('/api/rsvp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const result=await resp.json();if(!resp.ok)throw new Error(result.error||'Unable to submit your RSVP.');form.reset();form.dataset.requestId='';guestNames.replaceChildren();guestDetails.hidden=false;guestCount.disabled=false;status.className='success';status.textContent=attending==='yes'?'Thank you! Your RSVP is confirmed. We cannot wait to celebrate with you.':'Thank you for letting us know. You will be missed!';}catch(err){status.className='error';status.textContent=err.message;}finally{btn.disabled=false;btn.innerHTML='SUBMIT RSVP <span>↗</span>';}});
