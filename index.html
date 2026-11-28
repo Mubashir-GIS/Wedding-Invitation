@@ -378,16 +378,17 @@ body.site-reveal .hero-shade:after{animation-duration:20s}
   .paper-interior h2{font-size:clamp(30px,7vw,42px);line-height:1.04;margin:7px 0 9px;max-width:100%;overflow-wrap:normal;}
   .paper-interior p{font-size:15px;line-height:1.46;max-width:30ch;margin:7px auto 5px;}
   .paper-interior .inside-date{font-size:9px;line-height:1.5;letter-spacing:.15em;margin:4px auto 0;}
-  .inside-continue{position:absolute;left:50%;bottom:clamp(20px,4vh,34px);margin:0;white-space:nowrap;transform:translate(-50%,12px);}
-  .lake-como-invite.card-ready .inside-continue{transform:translate(-50%,0);}
+  .paper-interior>.inside-continue{position:absolute;left:50%;bottom:clamp(20px,4vh,34px);margin:0;white-space:nowrap;transform:translate(-50%,12px);}
+  .lake-como-invite.card-ready .paper-interior>.inside-continue{transform:translate(-50%,0);animation:mobileButtonIn .7s cubic-bezier(.2,.7,.2,1) both;}
 }
+@keyframes mobileButtonIn{from{opacity:0;transform:translate(-50%,12px)}to{opacity:1;transform:translate(-50%,0)}}
 @media(max-width:380px){
   .paper-interior{padding:44px 20px 82px;}
   .paper-interior h2{font-size:clamp(28px,7.5vw,34px);}
   .paper-interior p{font-size:14px;max-width:28ch;}
-  .inside-continue{padding:10px 13px;font-size:7px;letter-spacing:.16em;}
+  .paper-interior>.inside-continue{padding:10px 13px;font-size:7px;letter-spacing:.16em;}
 }
-@media(prefers-reduced-motion:reduce){.lake-como-invite.card-ready .inside-continue{transform:translate(-50%,0)}}
+@media(prefers-reduced-motion:reduce){.lake-como-invite.card-ready .paper-interior>.inside-continue{transform:translate(-50%,0);animation:none;opacity:1}}
 </style></head><body>
 <div id="preloader" class="preloader"><span class="pre-monogram">K <em>&</em> D</span><span class="pre-caption">A LOVE STORY</span></div>
 <div id="inviteOverlay" class="invitation-overlay" role="dialog" aria-modal="true" aria-label="Wedding invitation">
